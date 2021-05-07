@@ -15,10 +15,10 @@
   "author": "Brandon Lehmann <brandonlehmann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^13.13.14",
-    "tslint": "^6.1.2",
-    "typedoc": "^0.16.9",
-    "typescript": "^3.9.7"
+    "@types/node": "^15.0.2",
+    "tslint": "^6.1.3",
+    "typedoc": "^0.20.36",
+    "typescript": "^4.2.4"
   },
   "repository": {
     "type": "git",

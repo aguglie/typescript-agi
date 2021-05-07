@@ -4,16 +4,17 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>typescript-agi</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for typescript-agi">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -47,11 +48,6 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
 			<h1>typescript-agi</h1>
 		</div>
 	</div>
@@ -77,28 +73,31 @@
 				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
 					<h2>Install</h2>
 				</a>
-				<pre><code class="language-sh">npm install typescript-agi</code></pre>
+				<pre><code class="language-sh"><span style="color: #000000">npm install typescript-agi</span>
+</code></pre>
 				<a href="#run-tests" id="run-tests" style="color: inherit; text-decoration: none;">
 					<h2>Run tests</h2>
 				</a>
-				<pre><code class="language-sh">npm run <span class="hljs-built_in">test</span></code></pre>
+				<pre><code class="language-sh"><span style="color: #000000">npm run </span><span style="color: #795E26">test</span>
+</code></pre>
 				<a href="#example-usage" id="example-usage" style="color: inherit; text-decoration: none;">
 					<h2>Example Usage</h2>
 				</a>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {
-    AGIServer, 
-    Channel
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'typescript-agi'</span>;
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">AGIServer</span><span style="color: #000000">, </span>
+<span style="color: #000000">    </span><span style="color: #001080">Channel</span>
+<span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;typescript-agi&#039;</span><span style="color: #000000">;</span>
 
-<span class="hljs-keyword">const</span> agiServer = <span class="hljs-keyword">new</span> AGIServer();
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">agiServer</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">AGIServer</span><span style="color: #000000">();</span>
 
-agiServer.on(<span class="hljs-string">'channel'</span>, <span class="hljs-keyword">async</span>(channel: Channel) =&gt; {
-    <span class="hljs-keyword">await</span> channel.answer();
-    <span class="hljs-keyword">await</span> channel.sayNumber(<span class="hljs-number">12345</span>);
-    <span class="hljs-keyword">await</span> channel.hangup();
-});
+<span style="color: #001080">agiServer</span><span style="color: #000000">.</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;channel&#039;</span><span style="color: #000000">, </span><span style="color: #0000FF">async</span><span style="color: #000000">(</span><span style="color: #001080">channel</span><span style="color: #000000">: </span><span style="color: #267F99">Channel</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">channel</span><span style="color: #000000">.</span><span style="color: #795E26">answer</span><span style="color: #000000">();</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">channel</span><span style="color: #000000">.</span><span style="color: #795E26">sayNumber</span><span style="color: #000000">(</span><span style="color: #098658">12345</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">channel</span><span style="color: #000000">.</span><span style="color: #795E26">hangup</span><span style="color: #000000">();</span>
+<span style="color: #000000">});</span>
 
-agiServer.start();</code></pre>
+<span style="color: #001080">agiServer</span><span style="color: #000000">.</span><span style="color: #795E26">start</span><span style="color: #000000">();</span>
+</code></pre>
 				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
 					<h2>Documentation</h2>
 				</a>
@@ -106,7 +105,7 @@ agiServer.start();</code></pre>
 				<a href="#author" id="author" style="color: inherit; text-decoration: none;">
 					<h2>Author</h2>
 				</a>
-				<p>👤 <strong>Brandon Lehmann <a href="mailto:&#98;&#114;&#97;&#110;&#x64;&#x6f;&#110;&#x6c;&#101;&#104;&#109;&#x61;&#110;&#x6e;&#64;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#98;&#114;&#97;&#110;&#x64;&#x6f;&#110;&#x6c;&#101;&#104;&#109;&#x61;&#110;&#x6e;&#64;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a></strong></p>
+				<p>👤 <strong>Brandon Lehmann <a href="mailto:brandonlehmann@gmail.com">brandonlehmann@gmail.com</a></strong></p>
 				<ul>
 					<li>Github: <a href="https://github.com/brandonlehmann">@brandonlehmann</a></li>
 				</ul>
@@ -122,7 +121,7 @@ agiServer.start();</code></pre>
 				<a href="#📝-license" id="📝-license" style="color: inherit; text-decoration: none;">
 					<h2>📝 License</h2>
 				</a>
-				<p>Copyright © 2020 <a href="https://github.com/brandonlehmann">Brandon Lehmann <a href="mailto:&#98;&#114;&#97;&#x6e;&#100;&#111;&#110;&#x6c;&#x65;&#x68;&#x6d;&#97;&#x6e;&#x6e;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#98;&#114;&#97;&#x6e;&#100;&#111;&#110;&#x6c;&#x65;&#x68;&#x6d;&#97;&#x6e;&#x6e;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></a>.</p>
+				<p>Copyright © 2020 <a href="https://github.com/brandonlehmann">Brandon Lehmann <a href="mailto:brandonlehmann@gmail.com">brandonlehmann@gmail.com</a></a>.</p>
 				<p>This project is <a href="https://github.com/brandonlehmann/typescript-agi/blob/master/LICENSE">MIT</a> licensed.</p>
 				<hr>
 				<p><em>This README was generated with ❤️ by <a href="https://github.com/kefranabg/readme-md-generator">readme-md-generator</a></em></p>
@@ -131,8 +130,8 @@ agiServer.start();</code></pre>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
 					</li>
 				</ul>
 			</nav>
@@ -163,57 +162,12 @@ agiServer.start();</code></pre>
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
@@ -223,6 +177,5 @@ agiServer.start();</code></pre>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
