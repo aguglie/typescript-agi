@@ -1,6 +1,6 @@
 {
   "name": "typescript-agi",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "NodeJS TypeScript Library for Asterisk AGI Interfaces",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
