@@ -2,10 +2,10 @@
 //
 // Please see the included LICENSE file for more information.
 
-import { Socket } from 'net';
-import { EventEmitter } from 'events';
-import { format } from 'util';
-import { ResponseArguments } from './ResponseArguments';
+import {Socket} from 'net';
+import {EventEmitter} from 'events';
+import {format} from 'util';
+import {ResponseArguments} from './ResponseArguments';
 
 /** @ignore */
 enum ContextState {
@@ -1423,14 +1423,24 @@ export class Channel extends EventEmitter {
 
     private async sendCommand(command: string): Promise<IResponse> {
         return new Promise((resolve, reject) => {
-            this.once('response', (response: IResponse) => {
-                return resolve(response);
-            });
+            const responseListener = (response: IResponse) => {
+                resolve(response);
+            }
+
+            const socketClosedListener = () => {
+                reject(new Error('Socket was closed'));
+            }
+
+            this.once('response', responseListener);
+            this.once('close', socketClosedListener);
+
 
             this.send(format('%s\n',
                 command.trim(),
             )).catch(error => {
-                this.removeAllListeners('response');
+                this.removeListener('response', responseListener);
+                this.removeListener('close', socketClosedListener);
+
                 reject(error);
             });
         });
