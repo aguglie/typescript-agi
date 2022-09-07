@@ -2,10 +2,10 @@
 //
 // Please see the included LICENSE file for more information.
 
-import {Socket} from 'net';
-import {EventEmitter} from 'events';
-import {format} from 'util';
-import {ResponseArguments} from './ResponseArguments';
+import { Socket } from 'net';
+import { EventEmitter } from 'events';
+import { format } from 'util';
+import { ResponseArguments } from './ResponseArguments';
 
 /** @ignore */
 enum ContextState {
@@ -384,7 +384,7 @@ export class Channel extends EventEmitter {
         fastForwardCharacter?: string,
         rewindCharacter?: string,
         pauseCharacter?: string,
-    ): Promise<{digit: string, playbackStatus: PlaybackStatus, playbackOffset: number}> {
+    ): Promise<{ digit: string, playbackStatus: PlaybackStatus, playbackOffset: number }> {
         const response = await this.sendCommand(format('CONTROL STREAM FILE %s "%s" %s %s %s %s',
             filename,
             escapeDigits,
@@ -1422,14 +1422,17 @@ export class Channel extends EventEmitter {
     }
 
     private async sendCommand(command: string): Promise<IResponse> {
-        return new Promise(async (resolve) => {
+        return new Promise((resolve, reject) => {
             this.once('response', (response: IResponse) => {
                 return resolve(response);
             });
 
-            await this.send(format('%s\n',
+            this.send(format('%s\n',
                 command.trim(),
-            ));
+            )).catch(error => {
+                this.removeAllListeners('response');
+                reject(error);
+            });
         });
     }
 }
