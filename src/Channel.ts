@@ -90,6 +90,8 @@ export class Channel extends EventEmitter {
     private m_accountcode: string = '';
     private m_threadid: string = '';
 
+    public isHangup: boolean = false;
+
     /**
      * Creates a new instance of a channel object
      * @param connection the AGI socket connection
@@ -105,7 +107,10 @@ export class Channel extends EventEmitter {
         this.m_connection.on('close', () => this.emit('close'));
         this.m_connection.on('error', (error) => this.emit('error', error));
         this.m_connection.on('timeout', () => this.emit('timeout'));
-        this.on('hangup', () => this.close());
+
+        this.on('hangup', () => {
+            this.isHangup = true;
+        });
     }
 
     /**
@@ -706,6 +711,8 @@ export class Channel extends EventEmitter {
         if (response.code !== 200 || response.result !== 1) {
             throw new Error('Could not hang up call');
         }
+
+        this.isHangup = true;
     }
 
     /**
@@ -1269,11 +1276,11 @@ export class Channel extends EventEmitter {
         return response.arguments.char('result');
     }
 
-    /* Internal Methods */
-
-    private close() {
+    public close() {
         this.m_connection.destroy();
     }
+
+    /* Internal Methods */
 
     private read(data: Buffer): void {
         if (data.length === 0) {
