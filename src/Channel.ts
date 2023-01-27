@@ -89,6 +89,9 @@ export class Channel extends EventEmitter {
     private m_enhanced: string = '';
     private m_accountcode: string = '';
     private m_threadid: string = '';
+    private m_agi_arg_1: string = '';
+    private m_agi_arg_2: string = '';
+    private m_agi_arg_3: string = '';
 
     public isHangup: boolean = false;
 
@@ -328,6 +331,27 @@ export class Channel extends EventEmitter {
      */
     public get threadid(): string {
         return this.m_threadid;
+    }
+
+    /**
+     * Get AGI argument 1
+     */
+    public get arg1(): string {
+        return this.m_agi_arg_1;
+    }
+
+    /**
+     * Get AGI argument 2
+     */
+    public get arg2(): string {
+        return this.m_agi_arg_2;
+    }
+
+    /**
+     * Get AGI argument 3
+     */
+    public get arg3(): string {
+        return this.m_agi_arg_3;
     }
 
     /**
@@ -1361,6 +1385,12 @@ export class Channel extends EventEmitter {
                     return this.m_accountcode = value;
                 case 'threadid':
                     return this.m_threadid = value;
+                case 'agi_arg_1':
+                    return this.m_agi_arg_1 = value;
+                case 'agi_arg_2':
+                    return this.m_agi_arg_2 = value;
+                case 'agi_arg_3':
+                    return this.m_agi_arg_3 = value;
             }
         });
 
