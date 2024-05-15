@@ -6,6 +6,7 @@ import * as net from 'net';
 import {EventEmitter} from 'events';
 import {Channel} from './Channel';
 import {format} from 'util';
+import {Logger} from "./Logger";
 
 /**
  * Represents an AGI server instance
@@ -19,8 +20,9 @@ export class AGIServer extends EventEmitter {
      * Constructs a new instance of the object
      * @param port
      * @param ip
+     * @param logger
      */
-    constructor(port: number = 3000, ip: string = '0.0.0.0') {
+    constructor(port: number = 3000, ip: string = '0.0.0.0', logger?: Logger) {
         super();
         this.setMaxListeners(10);
 
@@ -28,9 +30,18 @@ export class AGIServer extends EventEmitter {
         this.m_ip = ip;
 
         this.m_server.on('connection', (socket: net.Socket) => {
-            const channel = new Channel(socket);
+            const channel = new Channel(socket, logger);
 
-            channel.on('ready', () => this.emit('channel', channel));
+            channel.on('ready', () => {
+                logger?.debug({ message: 'Channel ready' });
+                this.emit('channel', channel)
+            });
+
+            channel.on('close', () => {
+                logger?.debug({ message: 'Channel closed' });
+                channel.removeAllListeners()
+                socket.removeAllListeners();
+            });
         });
     }
 

@@ -6,6 +6,7 @@ import {Socket} from 'net';
 import {EventEmitter} from 'events';
 import {format} from 'util';
 import {ResponseArguments} from './ResponseArguments';
+import {Logger} from "./Logger";
 
 /** @ignore */
 enum ContextState {
@@ -93,13 +94,17 @@ export class Channel extends EventEmitter {
     private arg_2: string = '';
     private arg_3: string = '';
 
+    private logger: Logger | undefined;
+
     public isHangup: boolean = false;
+
 
     /**
      * Creates a new instance of a channel object
      * @param connection the AGI socket connection
+     * @param logger
      */
-    constructor(connection: Socket) {
+    constructor(connection: Socket, logger?: Logger) {
         super();
         this.setMaxListeners(10);
 
@@ -111,9 +116,13 @@ export class Channel extends EventEmitter {
         this.m_connection.on('error', (error) => this.emit('error', error));
         this.m_connection.on('timeout', () => this.emit('timeout'));
 
-        this.on('hangup', () => {
+        this.logger = logger;
+
+        const hangupCallback = () => {
             this.isHangup = true;
-        });
+            this.removeListener('hangup', hangupCallback);
+        };
+        this.on('hangup', hangupCallback);
     }
 
     /**
@@ -1301,6 +1310,7 @@ export class Channel extends EventEmitter {
     }
 
     public close() {
+        this?.logger?.debug({message: 'Closing AGI connection'});
         this.m_connection.destroy();
     }
 
@@ -1410,6 +1420,7 @@ export class Channel extends EventEmitter {
             return;
         }
 
+        this.logger?.debug({message: 'AGI recv', data: line});
         this.emit('recv', line);
 
         const parsed = line.split(' ');
@@ -1449,6 +1460,7 @@ export class Channel extends EventEmitter {
     private async send(message: string): Promise<void> {
         return new Promise((resolve, reject) => {
             this.emit('send', message);
+            this.logger?.debug({message: 'AGI send', data: message});
             this.m_connection.write(message, (error) => {
                 if (error) {
                     return reject(error);
@@ -1461,23 +1473,27 @@ export class Channel extends EventEmitter {
     private async sendCommand(command: string): Promise<IResponse> {
         return new Promise((resolve, reject) => {
             const responseListener = (response: IResponse) => {
+                cleanup();
                 resolve(response);
-            }
+            };
 
             const socketClosedListener = () => {
+                cleanup();
                 reject(new Error('Socket was closed'));
-            }
+            };
+
+            const cleanup = () => {
+                this.removeListener('response', responseListener);
+                this.removeListener('close', socketClosedListener);
+            };
 
             this.once('response', responseListener);
             this.once('close', socketClosedListener);
 
-
             this.send(format('%s\n',
                 command.trim(),
             )).catch(error => {
-                this.removeListener('response', responseListener);
-                this.removeListener('close', socketClosedListener);
-
+                cleanup();
                 reject(error);
             });
         });
