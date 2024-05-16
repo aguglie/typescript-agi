@@ -1344,9 +1344,9 @@ export class Channel extends EventEmitter {
         const lines = message.split('\n');
 
         lines.map((line) => {
-            const split = line.split(':');
-            const name: string = (split[0] || '').trim();
-            const value: string = (split[1] || '').trim();
+            const [key, ...rest] = line.split(':');
+            const name: string = (key || '').trim();
+            const value: string = (rest.join(':') || '').trim();
 
             const id = name.substring(4);
 
