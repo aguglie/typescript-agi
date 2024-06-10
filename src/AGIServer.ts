@@ -30,6 +30,7 @@ export class AGIServer extends EventEmitter {
         this.m_ip = ip;
 
         this.m_server.on('connection', (socket: net.Socket) => {
+            socket.setKeepAlive(true, 10_000);
             const channel = new Channel(socket, logger);
 
             channel.on('ready', () => {
